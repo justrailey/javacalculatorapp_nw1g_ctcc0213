@@ -1,0 +1,89 @@
+import java.util.Scanner;
+
+public class CalculatorApp {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        char exitChar = 'M'; // Change the exit character to 'M'
+
+        while (true) {
+            System.out.println("Java Calculator App\n");
+
+            System.out.print("Enter first number: ");
+            double num1;
+
+            // Validate the input for the first number
+            while (!scanner.hasNextDouble()) {
+                System.out.println("Error: Please enter a valid number.");
+                System.out.print("Enter first number: ");
+                scanner.next(); // Consume the invalid input
+            }
+            num1 = scanner.nextDouble();
+
+            // Consume the newline character left by nextDouble()
+            scanner.nextLine();
+
+            System.out.print("Enter operator (+, -, *, /) or '" + exitChar + "' to exit: ");
+            String operatorInput = scanner.nextLine();
+            char operator;
+
+            // Check if the input is empty
+            if (operatorInput.isEmpty()) {
+                System.out.println("Error: Please enter a valid operator.");
+                continue; // Continue the loop for a new calculation
+            }
+
+            // Extract the first character from the input
+            operator = operatorInput.charAt(0);
+
+            // Check if the user wants to exit
+            if (operator == exitChar) {
+                System.out.println("Exiting the Java Calculator App. Goodbye!");
+                break; // Exit the loop
+            }
+
+            System.out.print("Enter second number: ");
+            double num2;
+
+            // Validate the input for the second number
+            while (!scanner.hasNextDouble()) {
+                System.out.println("Error: Please enter a valid number.");
+                System.out.print("Enter second number: ");
+                scanner.next(); // Consume the invalid input
+            }
+            num2 = scanner.nextDouble();
+
+            // Consume any remaining newline characters
+            scanner.nextLine();
+
+            double result = 0;
+
+            switch (operator) {
+                case '+':
+                    result = num1 + num2;
+                    break;
+                case '-':
+                    result = num1 - num2;
+                    break;
+                case '*':
+                    result = num1 * num2;
+                    break;
+                case '/':
+                    if (num2 != 0) {
+                        result = num1 / num2;
+                    } else {
+                        System.out.println("Error: Cannot divide by zero.");
+                        continue; // Continue the loop for a new calculation
+                    }
+                    break;
+                default:
+                    System.out.println("Error: Invalid operator.");
+                    continue; // Continue the loop for a new calculation
+            }
+
+            System.out.println("Result: " + result);
+        }
+
+        scanner.close();
+    }
+}
